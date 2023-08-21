@@ -1,31 +1,43 @@
-const db = require("mysql");
+const mysql = require("mysql");
 
 class Database {
   constructor() {
-    this.connection = db.createConnection({
+    this.connection = mysql.createConnection({
       host: "localhost",
       user: "root",
       password: "110130",
       port: 3306,
       database: "news",
     });
-    this.connection.connect((err) => {
-        console.log("123456");
-      if (err) {
-        console.log(err);
-      }
+  }
+  getUser(username) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(
+        "SELECT * FROM users WHERE username = ?",
+        username,
+        (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        }
+      );
     });
   }
-  getData(res) {
-    this.connection.query("select * from news_table", (err, data) => {
-        console.log(data);
-      if (err) {
-        return res.json(err);
-      } else {
-        return res.json(data);
-      }
+  addUser(username, password) {
+    return new Promise((resolve, reject) => {
+      this.connection.query("insert into users (username, password) values (?, ?)", [username, password], (err, data)=>{
+        if(err){
+            reject(err);
+        }else{
+            resolve(data);
+        }
+      });
     });
   }
 }
 
-module.exports = Database;
+const database = new Database();
+
+module.exports = database;
