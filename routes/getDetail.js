@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const verifyToken = require("../middlewares/veriftToken")
+// const verifyToken = require("../middlewares/veriftToken")
 
-router.get("/", verifyToken, function (req, res, next) {
+router.get("/", function (req, res, next) {
   const { itemid } = req.query;
   axios
     .get(
