@@ -6,7 +6,7 @@ function verifyToken(req, res, next){
     const token = req.header('Authorization');
 
     if(!token){
-        return res.status(401).json({message: "未登录！"});
+        return res.status(403).json({message: "未登录！"});
     }
 
     try {
@@ -14,7 +14,7 @@ function verifyToken(req, res, next){
         req.user = decoded;
         next();
     }catch(error){
-        return res.status(401).json({message: "令牌无效"});
+        return res.status(403).json({message: "令牌无效"});
     }
 }
 
