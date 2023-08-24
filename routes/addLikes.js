@@ -5,10 +5,10 @@ const verifyToken = require("../middlewares/verifyToken");
 
 router.post("/", verifyToken, (req, res, next) => {
   const {
-    body: { newsId },
+    body: { newsId, source, publish_time, title },
     user: { userId },
   } = req;
-  db.addLikes(userId, newsId)
+  db.addLikes(userId, newsId, source, publish_time, title)
     .then((v) => {
       return res.status(200).json({ message: "点赞成功！" });
     })

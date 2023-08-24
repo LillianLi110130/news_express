@@ -11,8 +11,7 @@ const login = require("./routes/login");
 const addLikes = require("./routes/addLikes");
 const getLikes = require("./routes/getLikes");
 const deleteLikes = require("./routes/deleteLikes");
-const getStars = require("./routes/getStars")
-const deleteStars = require("./routes/deleteStars")
+const myLikes = require("./routes/mylikes");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -35,9 +34,7 @@ app.use("/getlike", getLikes);
 
 app.use("/deletelike", deleteLikes);
 
-app.use("/getstars", getStars);
-
-app.use("/deletestars", deleteStars);
+app.use("/mylikes", myLikes);
 
 app.listen(port, () => {
   console.log("listening");

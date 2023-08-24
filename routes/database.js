@@ -40,11 +40,11 @@ class Database {
       );
     });
   }
-  addLikes(user_id, news_id) {
+  addLikes(user_id, news_id, source, publish_time, title) {
     return new Promise((resolve, reject) => {
       this.connection.query(
-        "insert into likes (user_id, news_id) values (?, ?)",
-        [user_id, news_id],
+        "insert into likes (user_id, news_id, source, publish_time, title) values (?, ?, ?, ?, ?)",
+        [user_id, news_id, source, publish_time, title],
         (err, data) => {
           if (err) {
             reject(err);
@@ -84,6 +84,21 @@ class Database {
             } else {
               resolve("取消点赞成功！");
             }
+          }
+        }
+      );
+    });
+  }
+  getLikes(user_id) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(
+        "SELECT * FROM likes WHERE user_id = ?",
+        user_id,
+        (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
           }
         }
       );
