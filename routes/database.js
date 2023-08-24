@@ -27,14 +27,63 @@ class Database {
   }
   addUser(username, password) {
     return new Promise((resolve, reject) => {
-      this.connection.query("insert into users (username, password) values (?, ?)", [username, password], (err, data)=>{
-        if(err){
+      this.connection.query(
+        "insert into users (username, password) values (?, ?)",
+        [username, password],
+        (err, data) => {
+          if (err) {
             reject(err);
-        }else{
+          } else {
             resolve(data);
+          }
         }
-      });
+      );
     });
+  }
+  getStarsByUserAndNews(user_id, news_id) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(
+        "select * from stars where user_id = ? and news_id = ?",
+        [user_id, news_id],
+        (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        }
+      );
+    });
+  }
+  addStars(user_id, news_id) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(
+        "insert into stars (user_id, news_id) values (?, ?)",
+        [user_id, news_id],
+        (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        }
+      );
+    });
+  }
+  deleteStars(user_id, news_id) {
+    return new Promise((resolve, reject)=>{
+      this.connection.query("delete from stars where user_id = ? and news_id = ?",[user_id, news_id],(err, data)=>{
+        if(err){
+          reject(err);
+        }else{
+          if (data.affectedRows === 0) {
+            resolve("要删除的记录不存在");
+          } else {
+            resolve("删除成功");
+          }
+        }
+      })
+    })
   }
 }
 
