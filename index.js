@@ -20,21 +20,21 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-app.use("/getnews", getNews);
+app.use("/api/getnews", getNews);
 
-app.use("/getdetail", getDetail);
+app.use("/api/getdetail", getDetail);
 
-app.use("/register", register);
+app.use("/api/register", register);
 
-app.use("/login", login);
+app.use("/api/login", login);
 
-app.use("/addlike", addLikes);
+app.use("/api/addlike", addLikes);
 
-app.use("/getlike", getLikes);
+app.use("/api/getlike", getLikes);
 
-app.use("/deletelike", deleteLikes);
+app.use("/api/deletelike", deleteLikes);
 
-app.use("/mylikes", myLikes);
+app.use("/api/mylikes", myLikes);
 
 app.listen(port, () => {
   console.log("listening");
