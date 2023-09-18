@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const database = require("./database");
 
-const secretKey = "110130";
+const secretKey = process.env.SECRET_KEY;
 
 router.post("/", (req, res, next) => {
   const { username, password } = req.body;
